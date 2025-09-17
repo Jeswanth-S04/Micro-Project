@@ -32,7 +32,7 @@ const DepartmentDashboard = () => {
     try {
       setLoading(true);
       console.log('🔍 Loading department dashboard data...');
-      
+
       const results = await Promise.allSettled([
         managementService.getDashboard(), // Use management data and filter for current department
         allocationService.getByDepartment(user?.departmentId || 1),
@@ -43,7 +43,7 @@ const DepartmentDashboard = () => {
       if (results[0].status === 'fulfilled' && results[0].value?.success) {
         const managementData = results[0].value.data;
         console.log('✅ Management data loaded:', managementData);
-        
+
         // Extract data for current department
         const currentDeptData = extractDepartmentData(managementData, user?.departmentId || 1);
         console.log('✅ Current department data:', currentDeptData);
@@ -52,7 +52,7 @@ const DepartmentDashboard = () => {
         // Handle uppercase response
         const managementData = results[0].value.Data;
         console.log('✅ Management data loaded (uppercase):', managementData);
-        
+
         const currentDeptData = extractDepartmentData(managementData, user?.departmentId || 1);
         console.log('✅ Current department data (uppercase):', currentDeptData);
         setDashboardData(currentDeptData);
@@ -65,7 +65,7 @@ const DepartmentDashboard = () => {
       if (results[1].status === 'fulfilled' && results[1].value?.success) {
         const allocationsData = results[1].value.data;
         console.log('✅ Allocations loaded:', allocationsData);
-        
+
         if (Array.isArray(allocationsData)) {
           setAllocations(allocationsData);
         } else {
@@ -86,7 +86,7 @@ const DepartmentDashboard = () => {
       if (results[2].status === 'fulfilled' && results[2].value?.success) {
         const requestsData = results[2].value.data;
         console.log('✅ Requests loaded:', requestsData);
-        
+
         if (Array.isArray(requestsData)) {
           setRequests(requestsData);
         } else {
@@ -117,9 +117,9 @@ const DepartmentDashboard = () => {
 
     const summary = managementData.Summary || managementData.summary;
     const departments = summary?.Departments || summary?.departments || [];
-    
+
     // Find current department
-    const currentDept = departments.find(d => 
+    const currentDept = departments.find(d =>
       (d.DepartmentId || d.departmentId) === departmentId
     );
 
@@ -135,9 +135,9 @@ const DepartmentDashboard = () => {
         balance: currentDept.Balance || currentDept.balance || 0,
         categories: currentDept.Categories || currentDept.categories || []
       },
-      utilization: managementData.UtilizationTrends?.find(u => 
+      utilization: managementData.UtilizationTrends?.find(u =>
         (u.DepartmentId || u.departmentId) === departmentId
-      ) || managementData.utilizationTrends?.find(u => 
+      ) || managementData.utilizationTrends?.find(u =>
         (u.DepartmentId || u.departmentId) === departmentId
       ),
       recentRequests: (managementData.RecentRequests || managementData.recentRequests || [])
@@ -160,7 +160,7 @@ const DepartmentDashboard = () => {
     };
     const labels = {
       0: 'Pending',
-      1: 'Approved', 
+      1: 'Approved',
       2: 'Rejected'
     };
     return <Badge bg={variants[status] || 'secondary'}>{labels[status] || 'Unknown'}</Badge>;
@@ -248,7 +248,7 @@ const DepartmentDashboard = () => {
                   <h6 className="text-muted">Total Allocated</h6>
                   <h3 className="text-primary">
                     {formatCurrency(
-                      dashboardData?.department?.totalAllocation || 
+                      dashboardData?.department?.totalAllocation ||
                       departmentAllocations.reduce((sum, alloc) => sum + (alloc.amount || 0), 0)
                     )}
                   </h3>
@@ -269,7 +269,7 @@ const DepartmentDashboard = () => {
                   <h6 className="text-muted">Total Spent</h6>
                   <h3 className="text-success">
                     {formatCurrency(
-                      dashboardData?.department?.totalSpent || 
+                      dashboardData?.department?.totalSpent ||
                       departmentAllocations.reduce((sum, alloc) => sum + (alloc.spent || 0), 0)
                     )}
                   </h3>
@@ -339,13 +339,13 @@ const DepartmentDashboard = () => {
                       {(dashboardData.utilization.UtilizationPercentage || dashboardData.utilization.utilizationPercentage || 0).toFixed(1)}%
                     </h2>
                     <small className="text-muted">
-                      {dashboardData.utilization.IsHighUtilization || dashboardData.utilization.isHighUtilization 
-                        ? 'High Utilization' 
+                      {dashboardData.utilization.IsHighUtilization || dashboardData.utilization.isHighUtilization
+                        ? 'High Utilization'
                         : 'Good Utilization'}
                     </small>
                   </div>
                 </div>
-                <ProgressBar 
+                <ProgressBar
                   now={dashboardData.utilization.UtilizationPercentage || dashboardData.utilization.utilizationPercentage || 0}
                   variant={dashboardData.utilization.IsHighUtilization || dashboardData.utilization.isHighUtilization ? 'danger' : 'success'}
                   className="mt-3"
@@ -374,7 +374,7 @@ const DepartmentDashboard = () => {
                   <span className="fs-1"></span>
                   <h5 className="mt-3">No Budget Allocations</h5>
                   <p className="text-muted">
-                    No budget has been allocated to your department yet. 
+                    No budget has been allocated to your department yet.
                     Contact your Finance Admin for budget allocation.
                   </p>
                 </Alert>
@@ -398,7 +398,7 @@ const DepartmentDashboard = () => {
                       const utilization = calculateUtilization(spent, allocated);
                       const nearingLimit = allocation.nearingLimit || utilization >= (allocation.thresholdPercent || 80);
                       const exceeded = allocation.exceeded || utilization >= 100;
-                      
+
                       return (
                         <tr key={allocation.id || allocation.categoryName}>
                           <td>
@@ -421,8 +421,8 @@ const DepartmentDashboard = () => {
                           </td>
                           <td>
                             <div style={{ minWidth: '120px' }}>
-                              <ProgressBar 
-                                now={Math.min(utilization, 100)} 
+                              <ProgressBar
+                                now={Math.min(utilization, 100)}
                                 variant={getUtilizationVariant(utilization)}
                                 className="mb-1"
                                 style={{ height: '8px' }}
@@ -462,8 +462,8 @@ const DepartmentDashboard = () => {
                   <p className="text-muted small">
                     Submit your first budget request.
                   </p>
-                  <Button 
-                    variant="success" 
+                  <Button
+                    variant="success"
                     size="sm"
                     onClick={() => setShowRequestModal(true)}
                   >
@@ -474,8 +474,8 @@ const DepartmentDashboard = () => {
               ) : (
                 <>
                   {(dashboardData?.recentRequests?.length > 0 ? dashboardData.recentRequests : requests.slice(0, 5)).map((request) => (
-                    <div 
-                      key={request.id || request.Id} 
+                    <div
+                      key={request.id || request.Id}
                       className="border-bottom py-3"
                     >
                       <div className="d-flex justify-content-between align-items-start">
@@ -499,7 +499,7 @@ const DepartmentDashboard = () => {
                       </div>
                     </div>
                   ))}
-                  
+
                   <div className="text-center mt-3">
                     <Link to="/requests" className="btn btn-outline-primary btn-sm">
                       <span className="me-1"></span>

@@ -34,7 +34,6 @@ const dashboardService = {
   getManagementSummary: async (filters = {}) => {
     try {
       const params = new URLSearchParams();
-      
       if (filters.categoryId) params.append('categoryId', filters.categoryId);
       if (filters.departmentId) params.append('departmentId', filters.departmentId);
 
