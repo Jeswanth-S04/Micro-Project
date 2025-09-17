@@ -108,7 +108,7 @@ const Header = ({ onToggleSidebar }) => {
           className="fw-bold text-primary text-decoration-none d-flex align-items-center"
         >
           <span className="me-2 fs-4"></span>
-          <span className="d-none d-sm-inline">Simple Budget Allocation Tool</span>
+          <span style={{color:'black'}}>Simple Budget Allocation Tool</span>
           <span className="d-sm-none">Budget</span>
         </Navbar.Brand>
       </div>
