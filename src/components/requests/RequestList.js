@@ -8,6 +8,8 @@ import ReviewModal from './ReviewModal';
 import { formatCurrency, formatDate } from '../../utils/helpers';
 import { useAuth } from '../../contexts/AuthContext';
 import { toast } from 'react-toastify';
+import CategoryModal from '../categories/CategoryModal';
+import {categoryService} from '../../services/categoryService';
 
 // Constants
 const REQUEST_STATUS_LABELS = {
@@ -31,6 +33,7 @@ const RequestList = () => {
     const [selectedRequest, setSelectedRequest] = useState(null);
     const [activeTab, setActiveTab] = useState('all');
     const [error, setError] = useState('');
+    const [categories, setCategories] = useState([]);
 
     const isDepartmentHead = user?.role === USER_ROLES.DEPARTMENT_HEAD;
     const isFinanceAdmin = user?.role === USER_ROLES.FINANCE_ADMIN;
@@ -139,6 +142,12 @@ const RequestList = () => {
         setShowReviewModal(true);
     };
 
+    const getCategoryName = (categoryId) => {
+        const category = categories.find(c => (c.id || c.Id) === categoryId);
+        return category ? (category.name || category.Name) : 'Unknown Category';
+      };
+
+
     const handleReviewSuccess = () => {
         setShowReviewModal(false);
         setSelectedRequest(null);
@@ -232,7 +241,7 @@ const RequestList = () => {
                 </Row>
             )}
 
-            {/* Debug Info */}
+            {/* Debug Info
             <Row className="mb-3">
                 <Col>
                     <Alert variant="info">
@@ -251,9 +260,9 @@ const RequestList = () => {
                                 </pre>
                             </details>
                         )}
-                    </Alert>
-                </Col>
-            </Row>
+                    </Alert> */}
+                {/* </Col>
+            </Row> */}
 
             <Row>
                 <Col>
@@ -266,8 +275,8 @@ const RequestList = () => {
                             >
                                 <Tab eventKey="all" title={`All Requests (${requests.length})`} />
                                 <Tab eventKey="pending" title={`Pending (${statusCounts.pending})`} />
-                                <Tab eventKey="approved" title={`Approved (${statusCounts.approved})`} />
-                                <Tab eventKey="rejected" title={`Rejected (${statusCounts.rejected})`} />
+                                {/* <Tab eventKey="approved" title={`Approved (${statusCounts.approved})`} />
+                                <Tab eventKey="rejected" title={`Rejected (${statusCounts.rejected})`} /> */}
                             </Tabs>
                         </Card.Header>
                         <Card.Body>
@@ -313,7 +322,7 @@ const RequestList = () => {
                                             const id = request.id || request.Id || index;
                                             const amount = request.amount || request.Amount || 0;
                                             const reason = request.reason || request.Reason || 'No reason provided';
-                                            const categoryName = request.categoryName || request.CategoryName || 'Unknown Category';
+                                            const categoryName = request.categoryName || request.categoryName  ||categories.Name || getCategoryName(categories.categoryId) || 'unknown Category';
                                             const departmentName = request.departmentName || request.DepartmentName || 'Unknown Department';
                                             const status = request.status ?? request.Status ?? 0;
                                             const createdAt = request.createdAt || request.CreatedAt;

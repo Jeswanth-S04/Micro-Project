@@ -174,6 +174,10 @@ const AdminDashboard = () => {
             setDeleteLoading(false);
         }
     };
+    const getCategoryName = (categoryId) => {
+        const category = categories.find(c => (c.id || c.Id) === categoryId);
+        return category ? (category.name || category.Name) : 'Unknown Category';
+      };
 
     const cancelDeleteCategory = () => {
         setShowDeleteModal(false);
@@ -500,7 +504,7 @@ const AdminDashboard = () => {
                                                             <td>
                                                                 <span className="fw-semibold">{allocation.departmentName}</span>
                                                             </td>
-                                                            <td>{allocation.categoryName}</td>
+                                                            <td>{allocation.categoryName || getCategoryName(allocation.categoryId)}</td>
                                                             <td className="fw-bold text-primary">
                                                                 {formatCurrency(allocation.amount)}
                                                             </td>
@@ -606,7 +610,7 @@ const AdminDashboard = () => {
                                     </div>
                                 </Tab>
 
-                                {/* Analytics Tab */}
+                                {/* Analytics Tab
                                 <Tab eventKey="analytics" title={
                                     <span>
                                         <span className="me-1"></span>
@@ -624,7 +628,7 @@ const AdminDashboard = () => {
                                             View Full Analytics
                                         </Link>
                                     </div>
-                                </Tab>
+                                </Tab> */}
 
                             </Tabs>
                         </Card.Body>

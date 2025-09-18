@@ -6,8 +6,7 @@ import ErrorBoundary from './components/common/ErrorBoundary';
 import ProtectedRoute from './components/common/ProtectedRoute';
 import Layout from './components/layout/Layout';
 import Login from './components/auth/Login';
-
-
+// import UserManagement from './components/users/UserManagement';
 
 // Dashboard Components
 import DepartmentDashboard from './components/dashboard/DepartmentDashboard';
@@ -52,10 +51,10 @@ function App() {
                 <Route path="analytics" element={<Analytics />} />
                 <Route path="reports" element={<Reports />} />
                 <Route path="notifications" element={<NotificationList />} />
+                {/* <Route path="users" element={<UserManagement />} /> */}
                 
                 {/* Fallback */}
                 <Route path="*" element={<Navigate to="/dashboard" replace />} />
-                {/* <Route path="/users" element={<UserManagement />} /> */}
               </Route>
             </Routes>
             

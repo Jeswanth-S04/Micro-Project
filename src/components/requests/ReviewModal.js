@@ -110,7 +110,7 @@ const ReviewModal = ({ show, onHide, request, onSuccess }) => {
             </Alert>
           )}
 
-          {/* Debug Info */}
+          {/* Debug Info
           <Alert variant="info" className="mb-4">
             <strong>Debug Info:</strong> Request ID: {requestId} | 
             Type: {typeof requestId} | 
@@ -121,7 +121,7 @@ const ReviewModal = ({ show, onHide, request, onSuccess }) => {
                 {JSON.stringify(request, null, 2)}
               </pre>
             </details>
-          </Alert>
+          </Alert> */}
 
           {/* Request Details */}
           <div className="mb-4 p-3 bg-light rounded">
@@ -182,7 +182,7 @@ const ReviewModal = ({ show, onHide, request, onSuccess }) => {
                     <span className="me-2"></span>
                     <strong className="text-success">Approve Request</strong>
                     <small className="d-block text-muted mt-1">
-                      This will approve the budget adjustment and notify the department
+                      
                     </small>
                   </span>
                 }
@@ -200,7 +200,7 @@ const ReviewModal = ({ show, onHide, request, onSuccess }) => {
                     <span className="me-2"></span>
                     <strong className="text-danger">Reject Request</strong>
                     <small className="d-block text-muted mt-1">
-                      This will reject the budget adjustment and notify the department
+                      
                     </small>
                   </span>
                 }
@@ -226,7 +226,7 @@ const ReviewModal = ({ show, onHide, request, onSuccess }) => {
             <Form.Control
               as="textarea"
               rows={4}
-              placeholder="Add any notes or comments about this decision..."
+              placeholder="These notes will be visible to the requesting department and can help explain your decision"
               {...register('reviewerNote', {
                 maxLength: {
                   value: 500,
@@ -240,7 +240,7 @@ const ReviewModal = ({ show, onHide, request, onSuccess }) => {
             </Form.Control.Feedback>
             <Form.Text className="text-muted">
               <span className="me-1"></span>
-              These notes will be visible to the requesting department and can help explain your decision
+              
             </Form.Text>
           </Form.Group>
         </Modal.Body>
@@ -249,7 +249,7 @@ const ReviewModal = ({ show, onHide, request, onSuccess }) => {
           <div>
             <small className="text-muted">
               <span className="me-1"></span>
-              Review will be recorded with timestamp
+          
             </small>
           </div>
           <div>

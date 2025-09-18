@@ -390,7 +390,7 @@ const AllocationList = () => {
                           <tr key={allocation.id}>
                             <td>
                               <div className="fw-semibold">
-                                {allocation.categoryName || getCategoryName(allocation.categoryId)}
+                                {allocation.categoryName }
                               </div>
                             </td>
                             <td className="fw-bold text-primary">

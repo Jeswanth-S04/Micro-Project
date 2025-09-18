@@ -150,6 +150,7 @@ const AllocationModal = ({
               <option value={1}>Engineering</option>
               <option value={2}>Marketing</option>
               <option value={3}>Sales</option>
+              <option value={4}>IT Operations</option>
             </Form.Select>
             <Form.Control.Feedback type="invalid">
               {errors.departmentId?.message}

@@ -50,7 +50,7 @@ const RequestModal = ({ show, onHide, onSuccess }) => {
       };
 
       await requestService.create(requestData);
-      toast.success('Request submitted successfully');
+      // toast.success('Request submitted successfully');
       onSuccess();
     } catch (error) {
       console.error('Error creating request:', error);

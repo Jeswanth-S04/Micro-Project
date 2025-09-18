@@ -216,8 +216,8 @@ const Login = () => {
                   </Button>
                 </div>
               </Form>
-
-              {/* Demo Credentials */}
+{/* 
+              Demo Credentials
               <div className="mt-4 pt-3 border-top">
                 <h6 className="text-center mb-3">Demo Accounts:</h6>
                 <div className="row g-2">
@@ -233,8 +233,8 @@ const Login = () => {
                     <small className="text-muted">Management:</small><br />
                     <code>mgmt@corp.com / Mgmt@123</code>
                   </div>
-                </div>
-              </div>
+                </div> */}
+              {/* </div> */}
             </Card.Body>
           </Card>
         </Col>
